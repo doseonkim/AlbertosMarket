@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlbertosMarket", "AlbertosMarket\AlbertosMarket.csproj", "{4C8486E8-02EF-4243-B297-0BE1D86E8115}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlbertosMarket.Tests", "AlbertosMarket.Tests\AlbertosMarket.Tests.csproj", "{C7F51A13-A7D0-46BF-A260-A31C0B5C4365}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4C8486E8-02EF-4243-B297-0BE1D86E8115}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C8486E8-02EF-4243-B297-0BE1D86E8115}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C8486E8-02EF-4243-B297-0BE1D86E8115}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C8486E8-02EF-4243-B297-0BE1D86E8115}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7F51A13-A7D0-46BF-A260-A31C0B5C4365}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7F51A13-A7D0-46BF-A260-A31C0B5C4365}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7F51A13-A7D0-46BF-A260-A31C0B5C4365}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7F51A13-A7D0-46BF-A260-A31C0B5C4365}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A61591D8-A644-4A7A-A046-EE8DEC3BD7E1}
+	EndGlobalSection
+EndGlobal
