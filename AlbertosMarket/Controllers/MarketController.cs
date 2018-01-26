@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using AlbertosMarket.DAL;
 using AlbertosMarket.Models;
+using PagedList;
 
 namespace AlbertosMarket.Controllers
 {
@@ -16,9 +17,49 @@ namespace AlbertosMarket.Controllers
         private MarketContext db = new MarketContext();
 
         // GET: Market
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            return View(db.Markets.ToList());
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var posts = from p in db.Markets
+                           select p;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                posts = posts.Where(p => p.Title.Contains(searchString)
+                                    || p.Author.Contains(searchString));
+                             //|| p.Price.Equals(Convert.ToInt32(searchString))); //TODO: maybe add price ___
+            }
+
+            switch (sortOrder)
+            {
+                case "Date":
+                    posts = posts.OrderBy(p => p.PostDate);
+                    break;
+                case "date_desc":
+                    posts = posts.OrderByDescending(p => p.PostDate);
+                    break;
+                default: // Date ascending
+                    posts = posts.OrderBy(p => p.PostDate);
+                    break;
+            }
+
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(posts.ToPagedList(pageNumber, pageSize));
+            
         }
 
         // GET: Market/Details/5
