@@ -5,7 +5,6 @@ namespace AlbertosMarket.Models
 {
     public class Comment
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int CommentID { get; set; }
         public int MarketID { get; set; }
         public string Author { get; set; }

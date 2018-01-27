@@ -19,7 +19,12 @@
     </p>
 }
 
-<table class="table">
+<table class="table" width="100%" cellspacing='0' cellpadding='0'>
+    <col width="100px" />
+    <col width="350px" />
+    <col width="100px" />
+    <col width="100px" />
+    <col width="200px" />
     <tr>
         <th>
             @Html.ActionLink("Status", "Index", new { sortOrder = ViewBag.OptionSortParm, currentFilter = ViewBag.CurrentFilter })
