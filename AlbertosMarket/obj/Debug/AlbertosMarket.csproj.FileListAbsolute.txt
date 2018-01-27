@@ -238,3 +238,7 @@ C:\Users\alberto\Desktop\TINFO431\WepApp\AlbertosMarket\bin\PagedList.dll
 C:\Users\alberto\Desktop\TINFO431\WepApp\AlbertosMarket\bin\PagedList.Mvc.dll
 C:\Users\alberto\Desktop\TINFO431\WepApp\AlbertosMarket\bin\PagedList.xml
 C:\Users\alberto\Desktop\TINFO431\WepApp\AlbertosMarket\bin\PagedList.Mvc.xml
+C:\Users\Doseon\source\repos\AlbertosMarket\AlbertosMarket\bin\PagedList.dll
+C:\Users\Doseon\source\repos\AlbertosMarket\AlbertosMarket\bin\PagedList.Mvc.dll
+C:\Users\Doseon\source\repos\AlbertosMarket\AlbertosMarket\bin\PagedList.xml
+C:\Users\Doseon\source\repos\AlbertosMarket\AlbertosMarket\bin\PagedList.Mvc.xml

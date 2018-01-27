@@ -148,3 +148,7 @@ C:\Users\alberto\Desktop\TINFO431\WepApp\AlbertosMarket.Tests\bin\Debug\Microsof
 C:\Users\alberto\Desktop\TINFO431\WepApp\AlbertosMarket.Tests\obj\Debug\AlbertosMarket.Tests.csprojResolveAssemblyReference.cache
 C:\Users\alberto\Desktop\TINFO431\WepApp\AlbertosMarket.Tests\obj\Debug\AlbertosMarket.Tests.dll
 C:\Users\alberto\Desktop\TINFO431\WepApp\AlbertosMarket.Tests\obj\Debug\AlbertosMarket.Tests.pdb
+C:\Users\Doseon\source\repos\AlbertosMarket\AlbertosMarket.Tests\bin\Debug\PagedList.dll
+C:\Users\Doseon\source\repos\AlbertosMarket\AlbertosMarket.Tests\bin\Debug\PagedList.xml
+C:\Users\Doseon\source\repos\AlbertosMarket\AlbertosMarket.Tests\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Doseon\source\repos\AlbertosMarket\AlbertosMarket.Tests\bin\Debug\EntityFramework.SqlServer.xml

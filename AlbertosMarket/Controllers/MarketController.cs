@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using AlbertosMarket.DAL;
 using AlbertosMarket.Models;
 using PagedList;
+using System.Data.Entity.Infrastructure;
 
 namespace AlbertosMarket.Controllers
 {
@@ -19,8 +20,13 @@ namespace AlbertosMarket.Controllers
         // GET: Market
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            ViewBag.CurrentSort = sortOrder;
-            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            //ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "Name";
+            ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date_asc" : "";
+            ViewBag.NameSortParm = sortOrder == "name_asc" ? "name_desc" : "name_asc";
+            ViewBag.TitleSortParm = sortOrder == "title_asc" ? "title_desc" : "title_asc";
+            ViewBag.PriceSortParm = sortOrder == "price_asc" ? "price_desc" : "price_asc";
+            ViewBag.OptionSortParm = sortOrder == "option_asc" ? "option_desc" : "option_asc";
+
 
             if (searchString != null)
             {
@@ -33,33 +39,54 @@ namespace AlbertosMarket.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            var posts = from p in db.Markets
-                           select p;
+            var markets = from s in db.Markets
+                           select s;
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                posts = posts.Where(p => p.Title.Contains(searchString)
-                                    || p.Author.Contains(searchString));
-                             //|| p.Price.Equals(Convert.ToInt32(searchString))); //TODO: maybe add price ___
+                markets = markets.Where(s => s.Author.Contains(searchString)
+                                       || s.Title.Contains(searchString)
+                                       || s.Post.Contains(searchString)
+                                       || s.Option.ToString().Contains(searchString));
             }
-
             switch (sortOrder)
             {
-                case "Date":
-                    posts = posts.OrderBy(p => p.PostDate);
+                case "option_desc":
+                    markets = markets.OrderByDescending(s => s.Option);
                     break;
-                case "date_desc":
-                    posts = posts.OrderByDescending(p => p.PostDate);
+                case "option_asc":
+                    markets = markets.OrderBy(s => s.Option);
                     break;
-                default: // Date ascending
-                    posts = posts.OrderBy(p => p.PostDate);
+                case "price_desc":
+                    markets = markets.OrderByDescending(s => s.Price);
+                    break;
+                case "price_asc":
+                    markets = markets.OrderBy(s => s.Price);
+                    break;
+                case "title_desc":
+                    markets = markets.OrderByDescending(s => s.Title);
+                    break;
+                case "title_asc":
+                    markets = markets.OrderBy(s => s.Title);
+                    break;
+                case "name_desc":
+                    markets = markets.OrderByDescending(s => s.Author);
+                    break;
+                case "name_asc":
+                    markets = markets.OrderBy(s => s.Author);
+                    break;
+                case "date_asc":
+                    markets = markets.OrderBy(s => s.PostDate);
+                    break;
+                default:
+                    markets = markets.OrderByDescending(s => s.PostDate);
                     break;
             }
+
 
             int pageSize = 3;
             int pageNumber = (page ?? 1);
-            return View(posts.ToPagedList(pageNumber, pageSize));
-            
+            return View(markets.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Market/Details/5
@@ -88,13 +115,21 @@ namespace AlbertosMarket.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Author,PostDate,Option,Price,Title,Post")] Market market)
+        public ActionResult Create([Bind(Include = "Author,PostDate,Option,Price,Title,Post")] Market market)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Markets.Add(market);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                    if (ModelState.IsValid)
+                {
+                    db.Markets.Add(market);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (RetryLimitExceededException /* dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
 
             return View(market);
@@ -118,9 +153,9 @@ namespace AlbertosMarket.Controllers
         // POST: Market/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        /*[HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Author,PostDate,Option,Price,Title,Post")] Market market)
+        public ActionResult Edit([Bind(Include = "Author,PostDate,Option,Price,Title,Post")] Market market)
         {
             if (ModelState.IsValid)
             {
@@ -129,10 +164,37 @@ namespace AlbertosMarket.Controllers
                 return RedirectToAction("Index");
             }
             return View(market);
+        }*/
+
+          
+        [HttpPost, ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPost(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var market = db.Markets.Find(id);
+            if (TryUpdateModel(market))
+            {
+                try
+                {
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+                catch (RetryLimitExceededException /* dex */)
+                {
+                    //Log the error (uncomment dex variable name and add a line here to write a log.
+                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+                }
+            } 
+            return View(market);
         }
 
         // GET: Market/Delete/5
-        public ActionResult Delete(int? id)
+        /*public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -144,16 +206,54 @@ namespace AlbertosMarket.Controllers
                 return HttpNotFound();
             }
             return View(market);
+        }*/
+
+
+        public ActionResult Delete(int? id, bool? saveChangesError = false)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (saveChangesError.GetValueOrDefault())
+            {
+                ViewBag.ErrorMessage = "Delete failed. Try again, and if the problem persists see your system administrator.";
+            }
+            Market market = db.Markets.Find(id);
+            if (market == null)
+            {
+                return HttpNotFound();
+            }
+            return View(market);
         }
 
         // POST: Market/Delete/5
-        [HttpPost, ActionName("Delete")]
+        /*[HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Market market = db.Markets.Find(id);
             db.Markets.Remove(market);
             db.SaveChanges();
+            return RedirectToAction("Index");
+        }*/
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id)
+        {
+            try
+            {
+                Market market = db.Markets.Find(id);
+                db.Markets.Remove(market);
+                db.SaveChanges();
+            }
+            catch (RetryLimitExceededException /* dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                return RedirectToAction("Delete", new { id = id, saveChangesError = true });
+            }
             return RedirectToAction("Index");
         }
 

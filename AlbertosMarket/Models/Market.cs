@@ -25,7 +25,9 @@ namespace AlbertosMarket.Models
         [DataType(DataType.MultilineText)]
         public String Post { get; set; }
 
-       
+        public string Secret { get; set; }
+
+
 
         public virtual ICollection<Comment> Comments { get; set; }
     }

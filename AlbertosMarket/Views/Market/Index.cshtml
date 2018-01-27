@@ -11,11 +11,10 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-
 @using (Html.BeginForm("Index", "Market", FormMethod.Get))
 {
     <p>
-        Search: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
         <input type="submit" value="Search" />
     </p>
 }
@@ -23,19 +22,19 @@
 <table class="table">
     <tr>
         <th>
-            Status
+            @Html.ActionLink("Status", "Index", new { sortOrder = ViewBag.OptionSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().Title)
+            @Html.ActionLink("Title", "Index", new { sortOrder = ViewBag.TitleSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().Price)
+            @Html.ActionLink("Price", "Index", new { sortOrder = ViewBag.PriceSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().Author)
+            @Html.ActionLink("Author", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.ActionLink("Enrollment Date", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+            @Html.ActionLink("Posted Date", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th></th>
     </tr>
