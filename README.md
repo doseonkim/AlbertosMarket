@@ -1,4 +1,6 @@
-Group: 
-Alberto Garcia Salas,
-Doseon Kim
+Group:
+
+Alberto Garcia Salas (beto1994@uw.edu)
+
+Doseon Kim ()
 
