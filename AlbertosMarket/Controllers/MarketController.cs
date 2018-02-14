@@ -10,6 +10,7 @@ using AlbertosMarket.DAL;
 using AlbertosMarket.Models;
 using PagedList;
 using System.Data.Entity.Infrastructure;
+using AlbertosMarket.ViewModels;
 
 namespace AlbertosMarket.Controllers
 {
@@ -90,31 +91,6 @@ namespace AlbertosMarket.Controllers
         }
 
 
-        // POST: Market/Details/AddComment
-        //[HttpPost]
-        ////[Authorize]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult AddComment(string newComment)
-        //{
-        //    if(!String.IsNullOrEmpty(newComment))
-        //    {
-        //        Comment comment = new Comment
-        //        {
-        //          //  CommentID = 1,
-        //          //  MarketID = markets.Single(s => s.Title == "Used Honda Civic 2017").ID,
-        //          //  Content = "You suck alberto",
-        //          //  Author = akshay,
-        //          //  CommentDate = DateTime.Parse("2005-09-02")
-        //        };
-
-
-        //    }
-        //    Market market = db.Markets.Find();
-
-        //    return View(market);
-        //}
-
-
         // GET: Market/Details/5
         public ActionResult Details(int? id)
         {
@@ -127,6 +103,7 @@ namespace AlbertosMarket.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(market);
         }
 

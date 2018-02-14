@@ -22,7 +22,7 @@ namespace AlbertosMarket.Controllers
             return View(db.Authors.ToList());
         }*/
 
-        public ActionResult Index(int? id, int? courseID)
+        public ActionResult Index(int? id)
         {
             var viewModel = new AuthorIndexData();
             viewModel.Authors = db.Authors

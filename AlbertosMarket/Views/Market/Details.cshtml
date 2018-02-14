@@ -57,10 +57,44 @@
         <dd>
             @Html.DisplayFor(model => model.Post)
         </dd>
-
-
     </dl>
 </div>
+
+@if (Model.Comments != null)
+{
+    <h3>Comments</h3>
+    <p>
+        @Html.ActionLink("Add Comment", "Create", "Comment")
+    </p>
+    <table class="table">
+        <tr>
+            <th>Author </th>
+            <th>Comment </th>
+            <th>Date </th>
+        </tr>
+
+        @foreach (var item in Model.Comments)
+        {
+            string selectedRow = "";
+            if (item.AuthorID == ViewBag.AuthorID)
+            {
+                selectedRow = "success";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    @item.Author.Name
+                </td>
+                <td>
+                    @item.Content
+                </td>
+                <td>
+                    @item.CommentDate
+                </td>
+            </tr>
+        }
+
+    </table>
+}
 <!--
 <div>
    @using (Html.BeginForm("AddComment", "Market", FormMethod.Post))

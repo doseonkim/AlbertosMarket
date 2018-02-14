@@ -1,4 +1,5 @@
-﻿using AlbertosMarket.Models;
+﻿using AlbertosMarket.Migrations;
+using AlbertosMarket.Models;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
@@ -21,6 +22,7 @@ namespace AlbertosMarket.DAL
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+
         }
     }
 }

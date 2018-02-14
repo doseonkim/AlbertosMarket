@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using AlbertosMarket.DAL;
 using AlbertosMarket.Models;
+using System.Web.Routing;
 
 namespace AlbertosMarket.Controllers
 {
@@ -40,7 +41,7 @@ namespace AlbertosMarket.Controllers
         // GET: Comment/Create
         public ActionResult Create()
         {
-            ViewBag.AuthorID = new SelectList(db.Authors, "AuthorID", "Name");
+            ViewBag.AuthorID = new SelectList(db.Authors, "ID", "Name");
             ViewBag.MarketID = new SelectList(db.Markets, "ID", "Title");
             return View();
         }
@@ -56,10 +57,11 @@ namespace AlbertosMarket.Controllers
             {
                 db.Comments.Add(comment);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                // return RedirectToAction("Index");
+                return RedirectToAction("Details", "Market", new { id = comment.MarketID });
             }
 
-            ViewBag.AuthorID = new SelectList(db.Authors, "AuthorID", "Name", comment.AuthorID);
+            ViewBag.AuthorID = new SelectList(db.Authors, "ID", "Name", comment.AuthorID);
             ViewBag.MarketID = new SelectList(db.Markets, "ID", "Title", comment.MarketID);
             return View(comment);
         }
