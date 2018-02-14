@@ -7,7 +7,7 @@ namespace AlbertosMarket.Models
     {
         public int CommentID { get; set; }
         public int MarketID { get; set; }
-        public string Author { get; set; }
+        public Author Author { get; set; }
         public string Content { get; set; }
         public DateTime CommentDate { get; set; }
         public virtual Market Market { get; set; }

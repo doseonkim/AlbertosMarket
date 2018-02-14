@@ -44,7 +44,7 @@ namespace AlbertosMarket.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                markets = markets.Where(s => s.Author.Contains(searchString)
+                markets = markets.Where(s => s.Author.Name.Contains(searchString)
                                        || s.Title.Contains(searchString)
                                        || s.Post.Contains(searchString)
                                        || s.Option.ToString().Contains(searchString));
