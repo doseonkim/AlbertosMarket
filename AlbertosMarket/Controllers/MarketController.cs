@@ -108,9 +108,9 @@ namespace AlbertosMarket.Controllers
         }
 
         // GET: Market/Create
-        [Authorize]
         public ActionResult Create()
         {
+            ViewBag.AuthorID = new SelectList(db.Authors, "ID", "Name");
             return View();
         }
 
@@ -119,7 +119,7 @@ namespace AlbertosMarket.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Author,PostDate,Option,Price,Title,Post")] Market market)
+        public ActionResult Create([Bind(Include = "AuthorID,PostDate,Option,Price,Title,Post")] Market market)
         {
             try
             {
@@ -135,7 +135,7 @@ namespace AlbertosMarket.Controllers
                 //Log the error (uncomment dex variable name and add a line here to write a log.
                 ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
-
+            ViewBag.AuthorID = new SelectList(db.Authors, "ID", "Name", market.AuthorID);
             return View(market);
         }
 
@@ -172,7 +172,6 @@ namespace AlbertosMarket.Controllers
 
 
         [HttpPost, ActionName("Edit")]
-        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult EditPost(int? id)
         {
