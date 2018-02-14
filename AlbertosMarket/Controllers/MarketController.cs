@@ -70,10 +70,10 @@ namespace AlbertosMarket.Controllers
                     markets = markets.OrderBy(s => s.Title);
                     break;
                 case "name_desc":
-                    markets = markets.OrderByDescending(s => s.Author);
+                    markets = markets.OrderByDescending(s => s.Author.Name);
                     break;
                 case "name_asc":
-                    markets = markets.OrderBy(s => s.Author);
+                    markets = markets.OrderBy(s => s.Author.Name);
                     break;
                 case "date_asc":
                     markets = markets.OrderBy(s => s.PostDate);
@@ -105,6 +105,7 @@ namespace AlbertosMarket.Controllers
         }
 
         // GET: Market/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -168,6 +169,7 @@ namespace AlbertosMarket.Controllers
 
           
         [HttpPost, ActionName("Edit")]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult EditPost(int? id)
         {
@@ -207,7 +209,6 @@ namespace AlbertosMarket.Controllers
             }
             return View(market);
         }*/
-
 
         public ActionResult Delete(int? id, bool? saveChangesError = false)
         {

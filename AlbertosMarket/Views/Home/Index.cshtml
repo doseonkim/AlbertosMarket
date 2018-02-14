@@ -1,9 +1,10 @@
 ﻿@{
     ViewBag.Title = "Home Page";
+    var imagePath = "~/Content/images/the-market.png";
 }
 
 <div class="jumbotron">
-    <h1>Alberto's Marketplace</h1>
+    <img src="@Url.Content(imagePath)" alt="home image" />
 </div>
 <div class="row">
     <div class="col-md-4">

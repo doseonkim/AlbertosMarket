@@ -18,5 +18,7 @@ namespace AlbertosMarket.DAL
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
+
+        public System.Data.Entity.DbSet<AlbertosMarket.Models.Author> Authors { get; set; }
     }
 }

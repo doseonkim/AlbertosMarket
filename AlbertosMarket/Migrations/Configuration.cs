@@ -11,16 +11,16 @@ namespace AlbertosMarket.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(AlbertosMarket.DAL.MarketContext context)
         {
             Author alberto, akshay, doseon, ryan;
-            alberto = new Author { Name = "Alberto" };
-            akshay = new Author { Name = "Akshay" };
-            doseon = new Author { Name = "Doseon" };
-            ryan = new Author { Name = "Ryan" };
+            alberto = new Author { Name = "Alberto" , AuthorID=1};
+            akshay = new Author { Name = "Akshay", AuthorID = 2 };
+            doseon = new Author { Name = "Doseon", AuthorID = 3 };
+            ryan = new Author { Name = "Ryan", AuthorID = 4 };
 
 
 
