@@ -58,16 +58,22 @@
             @Html.DisplayFor(model => model.Post)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Secret)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Secret)
-        </dd>
 
     </dl>
 </div>
+<!--
+<div>
+   @using (Html.BeginForm("AddComment", "Market", FormMethod.Post))
+   {
+    <p>
+        Make comment:
+    </p>
+    <p>
+        @Html.TextBox("NewComment", ViewBag.NewComment as string)
+        <input type="submit" value="Add comment" />
+    </p>
+   }
+</div>-->
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
