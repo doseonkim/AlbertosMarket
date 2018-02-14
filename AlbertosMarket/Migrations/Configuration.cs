@@ -21,7 +21,11 @@ namespace AlbertosMarket.Migrations
             akshay = new Author { Name = "Akshay", AuthorID = 2 };
             doseon = new Author { Name = "Doseon", AuthorID = 3 };
             ryan = new Author { Name = "Ryan", AuthorID = 4 };
-
+            context.Authors.AddOrUpdate(alberto);
+            context.Authors.AddOrUpdate(akshay);
+            context.Authors.AddOrUpdate(doseon);
+            context.Authors.AddOrUpdate(ryan);
+            context.SaveChanges();
 
 
             var markets = new List<Market>

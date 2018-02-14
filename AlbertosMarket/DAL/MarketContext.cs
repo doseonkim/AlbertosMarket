@@ -13,12 +13,13 @@ namespace AlbertosMarket.DAL
 
         public DbSet<Market> Markets { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<Author> Authors { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
 
-        public System.Data.Entity.DbSet<AlbertosMarket.Models.Author> Authors { get; set; }
+        //public System.Data.Entity.DbSet<AlbertosMarket.Models.Author> Authors { get; set; }
     }
 }

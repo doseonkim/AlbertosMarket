@@ -89,6 +89,32 @@ namespace AlbertosMarket.Controllers
             return View(markets.ToPagedList(pageNumber, pageSize));
         }
 
+
+        // POST: Market/Details/AddComment
+        //[HttpPost]
+        ////[Authorize]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult AddComment(string newComment)
+        //{
+        //    if(!String.IsNullOrEmpty(newComment))
+        //    {
+        //        Comment comment = new Comment
+        //        {
+        //          //  CommentID = 1,
+        //          //  MarketID = markets.Single(s => s.Title == "Used Honda Civic 2017").ID,
+        //          //  Content = "You suck alberto",
+        //          //  Author = akshay,
+        //          //  CommentDate = DateTime.Parse("2005-09-02")
+        //        };
+
+
+        //    }
+        //    Market market = db.Markets.Find();
+
+        //    return View(market);
+        //}
+
+
         // GET: Market/Details/5
         public ActionResult Details(int? id)
         {
