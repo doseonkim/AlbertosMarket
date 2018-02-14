@@ -11,107 +11,116 @@ using AlbertosMarket.Models;
 
 namespace AlbertosMarket.Controllers
 {
-    public class AuthorsController : Controller
+    public class CommentController : Controller
     {
         private MarketContext db = new MarketContext();
 
-        // GET: Authors
+        // GET: Comment
         public ActionResult Index()
         {
-            return View(db.Authors.ToList());
+            var comments = db.Comments.Include(c => c.Author).Include(c => c.Market);
+            return View(comments.ToList());
         }
 
-        // GET: Authors/Details/5
+        // GET: Comment/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Author author = db.Authors.Find(id);
-            if (author == null)
+            Comment comment = db.Comments.Find(id);
+            if (comment == null)
             {
                 return HttpNotFound();
             }
-            return View(author);
+            return View(comment);
         }
 
-        // GET: Authors/Create
+        // GET: Comment/Create
         public ActionResult Create()
         {
+            ViewBag.AuthorID = new SelectList(db.Authors, "AuthorID", "Name");
+            ViewBag.MarketID = new SelectList(db.Markets, "ID", "Title");
             return View();
         }
 
-        // POST: Authors/Create
+        // POST: Comment/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "AuthorID,Name")] Author author)
+        public ActionResult Create([Bind(Include = "CommentID,MarketID,AuthorID,Content,CommentDate")] Comment comment)
         {
             if (ModelState.IsValid)
             {
-                db.Authors.Add(author);
+                db.Comments.Add(comment);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(author);
+            ViewBag.AuthorID = new SelectList(db.Authors, "AuthorID", "Name", comment.AuthorID);
+            ViewBag.MarketID = new SelectList(db.Markets, "ID", "Title", comment.MarketID);
+            return View(comment);
         }
 
-        // GET: Authors/Edit/5
+        // GET: Comment/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Author author = db.Authors.Find(id);
-            if (author == null)
+            Comment comment = db.Comments.Find(id);
+            if (comment == null)
             {
                 return HttpNotFound();
             }
-            return View(author);
+            ViewBag.AuthorID = new SelectList(db.Authors, "AuthorID", "Name", comment.AuthorID);
+            ViewBag.MarketID = new SelectList(db.Markets, "ID", "Title", comment.MarketID);
+            return View(comment);
         }
 
-        // POST: Authors/Edit/5
+        // POST: Comment/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AuthorID,Name")] Author author)
+        public ActionResult Edit([Bind(Include = "CommentID,MarketID,AuthorID,Content,CommentDate")] Comment comment)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(author).State = EntityState.Modified;
+                db.Entry(comment).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(author);
+            ViewBag.AuthorID = new SelectList(db.Authors, "AuthorID", "Name", comment.AuthorID);
+            ViewBag.MarketID = new SelectList(db.Markets, "ID", "Title", comment.MarketID);
+            return View(comment);
         }
 
-        // GET: Authors/Delete/5
+        // GET: Comment/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Author author = db.Authors.Find(id);
-            if (author == null)
+            Comment comment = db.Comments.Find(id);
+            if (comment == null)
             {
                 return HttpNotFound();
             }
-            return View(author);
+            return View(comment);
         }
 
-        // POST: Authors/Delete/5
+        // POST: Comment/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Author author = db.Authors.Find(id);
-            db.Authors.Remove(author);
+            Comment comment = db.Comments.Find(id);
+            db.Comments.Remove(comment);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -11,27 +11,11 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayNameFor(model => model.Author.Name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Option)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Option)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Author)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Author)
+            @Html.DisplayFor(model => model.Author.Name)
         </dd>
 
         <dt>
@@ -43,48 +27,48 @@
         </dd>
 
         <dt>
-            Asking Price
+            @Html.DisplayNameFor(model => model.Option)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Option)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Price)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Post)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Post)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Secret)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Secret)
+        </dd>
 
     </dl>
-
-    <dt>
-        @Html.DisplayNameFor(model => model.Post)
-    </dt>
-    <dd>
-        @Html.DisplayFor(model => model.Post)
-    </dd>
-    <br /><br /> <br />
-    <dt>
-        @Html.DisplayNameFor(model => model.Comments)
-    </dt>
-    <br />
-    <dd>
-        <table class="table">
-            <tr>
-                <th>Author </th>
-                <th>Comment </th>
-                <th>Date </th>
-            </tr>
-            @foreach (var item in Model.Comments)
-            {
-                <tr>
-                    <td>@Html.DisplayFor(modelItem => item.Author) </td>
-                    <td>@Html.DisplayFor(modelItem => item.Content) </td>
-                    <td>@Html.DisplayFor(modelItem => item.CommentDate) </td>
-                </tr>
-            }
-        </table>
-    </dd>
-
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
-    <!--  TODO: Add Comment (New bidding/ new offer/ make offer)-->
 </p>

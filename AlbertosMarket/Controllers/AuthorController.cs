@@ -8,115 +8,132 @@ using System.Web;
 using System.Web.Mvc;
 using AlbertosMarket.DAL;
 using AlbertosMarket.Models;
+using AlbertosMarket.ViewModels;
 
 namespace AlbertosMarket.Controllers
 {
-    public class MarketController : Controller
+    public class AuthorController : Controller
     {
         private MarketContext db = new MarketContext();
 
-        // GET: Market
-        public ActionResult Index()
+        // GET: Author
+        /*public ActionResult Index()
         {
-            var markets = db.Markets.Include(m => m.Author);
-            return View(markets.ToList());
+            return View(db.Authors.ToList());
+        }*/
+
+        public ActionResult Index(int? id, int? courseID)
+        {
+            var viewModel = new AuthorIndexData();
+            viewModel.Authors = db.Authors
+                .Include(i => i.Markets)
+                .Include(i => i.Comments)
+                .OrderBy(i => i.JoinDate);
+
+            if (id != null)
+            {
+                ViewBag.AuthorID = id.Value;
+                viewModel.Markets = viewModel.Authors.Where(
+                    i => i.ID == id.Value).Single().Markets;
+
+                viewModel.Comments = viewModel.Authors.Where(
+                    i => i.ID == id.Value).Single().Comments;
+            }
+
+            return View(viewModel);
         }
 
-        // GET: Market/Details/5
+        // GET: Author/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Market market = db.Markets.Find(id);
-            if (market == null)
+            Author author = db.Authors.Find(id);
+            if (author == null)
             {
                 return HttpNotFound();
             }
-            return View(market);
+            return View(author);
         }
 
-        // GET: Market/Create
+        // GET: Author/Create
         public ActionResult Create()
         {
-            ViewBag.AuthorID = new SelectList(db.Authors, "AuthorID", "Name");
             return View();
         }
 
-        // POST: Market/Create
+        // POST: Author/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,AuthorID,PostDate,Option,Price,Title,Post,Secret")] Market market)
+        public ActionResult Create([Bind(Include = "AuthorID,Name,JoinDate,location")] Author author)
         {
             if (ModelState.IsValid)
             {
-                db.Markets.Add(market);
+                db.Authors.Add(author);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.AuthorID = new SelectList(db.Authors, "AuthorID", "Name", market.AuthorID);
-            return View(market);
+            return View(author);
         }
 
-        // GET: Market/Edit/5
+        // GET: Author/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Market market = db.Markets.Find(id);
-            if (market == null)
+            Author author = db.Authors.Find(id);
+            if (author == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.AuthorID = new SelectList(db.Authors, "AuthorID", "Name", market.AuthorID);
-            return View(market);
+            return View(author);
         }
 
-        // POST: Market/Edit/5
+        // POST: Author/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,AuthorID,PostDate,Option,Price,Title,Post,Secret")] Market market)
+        public ActionResult Edit([Bind(Include = "AuthorID,Name,JoinDate,location")] Author author)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(market).State = EntityState.Modified;
+                db.Entry(author).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.AuthorID = new SelectList(db.Authors, "AuthorID", "Name", market.AuthorID);
-            return View(market);
+            return View(author);
         }
 
-        // GET: Market/Delete/5
+        // GET: Author/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Market market = db.Markets.Find(id);
-            if (market == null)
+            Author author = db.Authors.Find(id);
+            if (author == null)
             {
                 return HttpNotFound();
             }
-            return View(market);
+            return View(author);
         }
 
-        // POST: Market/Delete/5
+        // POST: Author/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Market market = db.Markets.Find(id);
-            db.Markets.Remove(market);
+            Author author = db.Authors.Find(id);
+            db.Authors.Remove(author);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

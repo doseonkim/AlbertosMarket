@@ -1,79 +1,69 @@
-﻿@model PagedList.IPagedList<AlbertosMarket.Models.Market>
-@using PagedList.Mvc;
-<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+﻿@model IEnumerable<AlbertosMarket.Models.Market>
 
 @{
-    ViewBag.Title = "Postings";
+    ViewBag.Title = "Index";
 }
 
-<h2>Postings</h2>
+<h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-@using (Html.BeginForm("Index", "Market", FormMethod.Get))
-{
-    <p>
-        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-        <input type="submit" value="Search" />
-    </p>
-}
-
-<table class="table" width="100%" cellspacing='0' cellpadding='0'>
-    <col width="100px" />
-    <col width="350px" />
-    <col width="100px" />
-    <col width="100px" />
-    <col width="200px" />
+<table class="table">
     <tr>
         <th>
-            @Html.ActionLink("Status", "Index", new { sortOrder = ViewBag.OptionSortParm, currentFilter = ViewBag.CurrentFilter })
+            @Html.DisplayNameFor(model => model.Author.Name)
         </th>
         <th>
-            @Html.ActionLink("Title", "Index", new { sortOrder = ViewBag.TitleSortParm, currentFilter = ViewBag.CurrentFilter })
+            @Html.DisplayNameFor(model => model.PostDate)
         </th>
         <th>
-            @Html.ActionLink("Price", "Index", new { sortOrder = ViewBag.PriceSortParm, currentFilter = ViewBag.CurrentFilter })
+            @Html.DisplayNameFor(model => model.Option)
         </th>
         <th>
-            @Html.ActionLink("Author", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+            @Html.DisplayNameFor(model => model.Price)
         </th>
         <th>
-            @Html.ActionLink("Posted Date", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Post)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Secret)
         </th>
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Option)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Author.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PostDate)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-            </td>
-        </tr>
-    }
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Author.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PostDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Option)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Post)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Secret)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
 
 </table>
-
-<br />
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-
-@Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

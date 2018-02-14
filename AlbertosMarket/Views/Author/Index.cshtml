@@ -1,0 +1,108 @@
+﻿@model AlbertosMarket.ViewModels.AuthorIndexData
+
+@{
+    ViewBag.Title = "Users";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>Username</th>
+        <th>Join Date</th>
+        <th>Location</th>
+        <th></th>
+    </tr>
+
+
+@foreach (var item in Model.Authors)
+    {
+        string selectedRow = "";
+        if (item.ID == ViewBag.AuthorID)
+        {
+            selectedRow = "success";
+        }
+        <tr class="@selectedRow">
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JoinDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.location)
+            </td>
+            <td>
+                @Html.ActionLink("Select", "Index", new { id = item.ID }) |
+                @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            </td>
+         </tr>
+}
+</table>
+
+@if (Model.Markets != null)
+{
+    <h3>Posts made by selected User</h3>
+    <table class="table">
+        <tr>
+            <th>Status</th>
+            <th>Title</th>
+            <th>Post Date</th>
+        </tr>
+
+        @foreach (var item in Model.Markets)
+        {
+            string selectedRow = "";
+            if (item.AuthorID == ViewBag.AuthorID)
+            {
+                selectedRow = "success";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    @item.Option
+                </td>
+                <td>
+                    @item.Title
+                </td>
+                <td>
+                    @item.PostDate
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+
+@if (Model.Comments != null)
+{
+    <h3>Comments made by selected User</h3>
+    <table class="table">
+        <tr>
+            <th>Comment</th>
+            <th>Post Date</th>
+        </tr>
+
+        @foreach (var item in Model.Comments)
+        {
+            string selectedRow = "";
+            if (item.AuthorID == ViewBag.AuthorID)
+            {
+                selectedRow = "success";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    @item.Content
+                </td>
+                <td>
+                    @item.CommentDate
+                </td>
+            </tr>
+        }
+
+    </table>
+}

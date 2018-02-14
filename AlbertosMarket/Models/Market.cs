@@ -15,7 +15,7 @@ namespace AlbertosMarket.Models
     {
 
         public int ID { get; set; }
-        public Author Author { get; set; }
+        public int AuthorID { get; set; }
         public DateTime PostDate { get; set; }
         public TradeOption? Option { get; set; }
         public int Price { get; set; }
@@ -30,5 +30,7 @@ namespace AlbertosMarket.Models
 
 
         public virtual ICollection<Comment> Comments { get; set; }
+
+        public virtual Author Author { get; set; }
     }
 }
