@@ -8,9 +8,11 @@ namespace AlbertosMarket.Models
     {
 
         public int CommentID { get; set; }
-        public int AuthorID { get; set; }
+        public string AuthorID { get; set; }
 
         public int MarketID { get; set; }
+
+        [DataType(DataType.MultilineText)]
         public string Content { get; set; }
         public DateTime CommentDate { get; set; }
         public virtual Market Market { get; set; }

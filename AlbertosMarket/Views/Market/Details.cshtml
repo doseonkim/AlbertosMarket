@@ -64,7 +64,9 @@
 {
     <h3>Comments</h3>
     <p>
-        @Html.ActionLink("Add Comment", "Create", "Comment")
+        <!--@Html.ActionLink("Add Comment", "Create", "Comment")-->
+        @Html.ActionLink("Add Comment", "Create",
+        "Comment", new {id = Model.ID}, null)
     </p>
     <table class="table">
         <tr>

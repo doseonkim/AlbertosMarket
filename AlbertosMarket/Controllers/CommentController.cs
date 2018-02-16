@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using AlbertosMarket.DAL;
 using AlbertosMarket.Models;
 using System.Web.Routing;
+using Microsoft.AspNet.Identity;
 
 namespace AlbertosMarket.Controllers
 {
@@ -38,8 +39,42 @@ namespace AlbertosMarket.Controllers
             return View(comment);
         }
 
+
+        [Authorize(Roles = "Author")]
         // GET: Comment/Create
-        public ActionResult Create()
+        public ActionResult Create(int id)
+        {
+            ViewBag.MarketID = id;
+            return View();
+        }
+
+        // POST: Comment/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Author")]
+        public ActionResult Create([Bind(Include = "CommentID,MarketID,Content")] Comment comment)
+        {
+            if (ModelState.IsValid)
+            {
+                comment.CommentDate = DateTime.Now;
+                comment.AuthorID = User.Identity.GetUserId();
+                //comment.Author = db.Authors.Find(comment.AuthorID);
+                db.Comments.Add(comment);
+                db.SaveChanges();
+                // return RedirectToAction("Index");
+                return RedirectToAction("Details", "Market", new { id = comment.MarketID });
+            }
+
+            ViewBag.AuthorID = new SelectList(db.Authors, "ID", "Name", comment.AuthorID);
+            ViewBag.MarketID = new SelectList(db.Markets, "ID", "Title", comment.MarketID);
+            return View(comment);
+        }
+
+        /*[Authorize(Roles = "Author")]
+        // GET: Comment/Create
+        public ActionResult Create(int? market_id)
         {
             ViewBag.AuthorID = new SelectList(db.Authors, "ID", "Name");
             ViewBag.MarketID = new SelectList(db.Markets, "ID", "Title");
@@ -51,10 +86,14 @@ namespace AlbertosMarket.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CommentID,MarketID,AuthorID,Content,CommentDate")] Comment comment)
+        [Authorize(Roles = "Author")]
+        public ActionResult Create([Bind(Include = "CommentID,MarketID,Content")] Comment comment)
         {
             if (ModelState.IsValid)
             {
+                comment.CommentDate = DateTime.Now;
+                comment.AuthorID = User.Identity.GetUserId();
+                //comment.Author = db.Authors.Find(comment.AuthorID);
                 db.Comments.Add(comment);
                 db.SaveChanges();
                 // return RedirectToAction("Index");
@@ -64,7 +103,7 @@ namespace AlbertosMarket.Controllers
             ViewBag.AuthorID = new SelectList(db.Authors, "ID", "Name", comment.AuthorID);
             ViewBag.MarketID = new SelectList(db.Markets, "ID", "Title", comment.MarketID);
             return View(comment);
-        }
+        }*/
 
         // GET: Comment/Edit/5
         public ActionResult Edit(int? id)
@@ -88,7 +127,7 @@ namespace AlbertosMarket.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CommentID,MarketID,AuthorID,Content,CommentDate")] Comment comment)
+        public ActionResult Edit([Bind(Include = "CommentID,Content")] Comment comment)
         {
             if (ModelState.IsValid)
             {

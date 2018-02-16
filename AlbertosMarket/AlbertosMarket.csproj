@@ -205,6 +205,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MarketController.cs" />
+    <Compile Include="DAL\AdminAuthorize.cs" />
     <Compile Include="DAL\MarketConfiguration.cs" />
     <Compile Include="DAL\MarketContext.cs" />
     <Compile Include="DAL\MarketInitializer.cs" />
@@ -215,9 +216,9 @@
     </Compile>
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\Logger.cs" />
-    <Compile Include="Migrations\201801271020055_InitialCreate.cs" />
-    <Compile Include="Migrations\201801271020055_InitialCreate.Designer.cs">
-      <DependentUpon>201801271020055_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201802160617238_webapp3_migration.cs" />
+    <Compile Include="Migrations\201802160617238_webapp3_migration.Designer.cs">
+      <DependentUpon>201802160617238_webapp3_migration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -307,6 +308,7 @@
     <Content Include="Views\Comment\Details.cshtml" />
     <Content Include="Views\Comment\Edit.cshtml" />
     <Content Include="Views\Comment\Index.cshtml" />
+    <Content Include="Views\Shared\Unauthorized.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -325,8 +327,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201801271020055_InitialCreate.resx">
-      <DependentUpon>201801271020055_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201802160617238_webapp3_migration.resx">
+      <DependentUpon>201802160617238_webapp3_migration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

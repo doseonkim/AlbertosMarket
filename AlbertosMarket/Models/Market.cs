@@ -15,7 +15,7 @@ namespace AlbertosMarket.Models
     {
 
         public int ID { get; set; }
-        public int AuthorID { get; set; }
+        public string AuthorID { get; set; }
         public DateTime PostDate { get; set; }
         public TradeOption? Option { get; set; }
         public int Price { get; set; }

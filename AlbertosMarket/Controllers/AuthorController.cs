@@ -22,7 +22,7 @@ namespace AlbertosMarket.Controllers
             return View(db.Authors.ToList());
         }*/
 
-        public ActionResult Index(int? id)
+        public ActionResult Index(string id)
         {
             var viewModel = new AuthorIndexData();
             viewModel.Authors = db.Authors
@@ -32,19 +32,19 @@ namespace AlbertosMarket.Controllers
 
             if (id != null)
             {
-                ViewBag.AuthorID = id.Value;
+                ViewBag.AuthorID = id.ToString();
                 viewModel.Markets = viewModel.Authors.Where(
-                    i => i.ID == id.Value).Single().Markets;
+                    i => i.ID.Equals(id.ToString())).Single().Markets;
 
                 viewModel.Comments = viewModel.Authors.Where(
-                    i => i.ID == id.Value).Single().Comments;
+                    i => i.ID.Equals(id.ToString())).Single().Comments;
             }
 
             return View(viewModel);
         }
 
         // GET: Author/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
@@ -59,6 +59,7 @@ namespace AlbertosMarket.Controllers
         }
 
         // GET: Author/Create
+        [AdminAuthorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -69,6 +70,7 @@ namespace AlbertosMarket.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AdminAuthorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "AuthorID,Name,JoinDate,location")] Author author)
         {
             if (ModelState.IsValid)
@@ -82,7 +84,8 @@ namespace AlbertosMarket.Controllers
         }
 
         // GET: Author/Edit/5
-        public ActionResult Edit(int? id)
+        [AdminAuthorize(Roles = "Admin")]
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
@@ -101,6 +104,7 @@ namespace AlbertosMarket.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AdminAuthorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "AuthorID,Name,JoinDate,location")] Author author)
         {
             if (ModelState.IsValid)
@@ -113,7 +117,8 @@ namespace AlbertosMarket.Controllers
         }
 
         // GET: Author/Delete/5
-        public ActionResult Delete(int? id)
+        [AdminAuthorize(Roles = "Admin")]
+        public ActionResult Delete(string id)
         {
             if (id == null)
             {
@@ -130,7 +135,8 @@ namespace AlbertosMarket.Controllers
         // POST: Author/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [AdminAuthorize(Roles = "Admin")]
+        public ActionResult DeleteConfirmed(string id)
         {
             Author author = db.Authors.Find(id);
             db.Authors.Remove(author);

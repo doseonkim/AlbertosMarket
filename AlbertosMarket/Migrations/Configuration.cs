@@ -11,17 +11,17 @@ namespace AlbertosMarket.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(AlbertosMarket.DAL.MarketContext context)
         {
             var authors = new List<Author>
             {
-            new Author { Name = "Alberto", JoinDate = DateTime.Parse("2002-07-06"), location="USA"},
-            new Author { Name = "Akshay", JoinDate = DateTime.Parse("1995-03-11"), location="USA"},
-            new Author { Name = "Doseon", JoinDate = DateTime.Parse("2001-01-15"), location="USA"},
-            new Author { Name = "Ryan", JoinDate = DateTime.Parse("2004-02-12"), location="USA"}
+            new Author {ID="1234", Name = "Alberto", JoinDate = DateTime.Parse("2002-07-06"), location="USA"},
+            new Author {ID="1235", Name = "Akshay", JoinDate = DateTime.Parse("1995-03-11"), location="USA"},
+            new Author {ID="1236", Name = "Doseon", JoinDate = DateTime.Parse("2001-01-15"), location="USA"},
+            new Author {ID="1237", Name = "Ryan", JoinDate = DateTime.Parse("2004-02-12"), location="USA"}
             };
             authors.ForEach(s => context.Authors.AddOrUpdate(p => p.Name, s));
             context.SaveChanges();

@@ -9,7 +9,7 @@ namespace AlbertosMarket.Models
 {
     public class Author
     {
-        public int ID { get; set; }
+        public String ID { get; set; }
 
         [Required]
         [Display(Name = "Username")]

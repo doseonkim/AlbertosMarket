@@ -6,14 +6,14 @@ namespace AlbertosMarket.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class InitialCreate : IMigrationMetadata
+    [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
+    public sealed partial class webapp3_migration : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCreate));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(webapp3_migration));
         
         string IMigrationMetadata.Id
         {
-            get { return "201801271020055_InitialCreate"; }
+            get { return "201802160617238_webapp3_migration"; }
         }
         
         string IMigrationMetadata.Source

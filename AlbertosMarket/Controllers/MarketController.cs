@@ -11,6 +11,7 @@ using AlbertosMarket.Models;
 using PagedList;
 using System.Data.Entity.Infrastructure;
 using AlbertosMarket.ViewModels;
+using Microsoft.AspNet.Identity;
 
 namespace AlbertosMarket.Controllers
 {
@@ -108,6 +109,7 @@ namespace AlbertosMarket.Controllers
         }
 
         // GET: Market/Create
+        [Authorize(Roles = "Author")]
         public ActionResult Create()
         {
             ViewBag.AuthorID = new SelectList(db.Authors, "ID", "Name");
@@ -119,12 +121,15 @@ namespace AlbertosMarket.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "AuthorID,PostDate,Option,Price,Title,Post")] Market market)
+        [Authorize(Roles = "Author")]
+        public ActionResult Create([Bind(Include = "Option,Price,Title,Post")] Market market)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
+                    market.PostDate = DateTime.Now;
+                    market.AuthorID = User.Identity.GetUserId();
                     db.Markets.Add(market);
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -212,6 +217,7 @@ namespace AlbertosMarket.Controllers
             return View(market);
         }*/
 
+        [AdminAuthorize(Roles = "Admin")]
         public ActionResult Delete(int? id, bool? saveChangesError = false)
         {
             if (id == null)
@@ -244,6 +250,7 @@ namespace AlbertosMarket.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AdminAuthorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
             try

@@ -1,5 +1,4 @@
-﻿using AlbertosMarket.Migrations;
-using AlbertosMarket.Models;
+﻿using AlbertosMarket.Models;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
