@@ -158,24 +158,12 @@ namespace AlbertosMarket.Controllers
             {
                 return HttpNotFound();
             }
-            return View(market);
-        }
-
-        // POST: Market/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        /*[HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Author,PostDate,Option,Price,Title,Post")] Market market)
-        {
-            if (ModelState.IsValid)
+            if (!market.AuthorID.Equals(User.Identity.GetUserId()))
             {
-                db.Entry(market).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return View("~/Views/Shared/NotOwner.cshtml");
             }
             return View(market);
-        }*/
+        }
 
 
         [HttpPost, ActionName("Edit")]
@@ -187,11 +175,15 @@ namespace AlbertosMarket.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var market = db.Markets.Find(id);
+            var market = db.Markets.Find(id);      
             if (TryUpdateModel(market))
-            {
+            {       
                 try
                 {
+                    if (!market.AuthorID.Equals(User.Identity.GetUserId()))
+                    {
+                        return View("~/Views/Shared/NotOwner.cshtml");
+                    }
                     db.SaveChanges();
 
                     return RedirectToAction("Index");
@@ -205,22 +197,7 @@ namespace AlbertosMarket.Controllers
             return View(market);
         }
 
-        // GET: Market/Delete/5
-        /*public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Market market = db.Markets.Find(id);
-            if (market == null)
-            {
-                return HttpNotFound();
-            }
-            return View(market);
-        }*/
-
-        [AdminAuthorize(Roles = "Admin")]
+        [Authorize(Roles = "Author")]
         public ActionResult Delete(int? id, bool? saveChangesError = false)
         {
             if (id == null)
@@ -236,29 +213,27 @@ namespace AlbertosMarket.Controllers
             {
                 return HttpNotFound();
             }
+
+            if (!market.AuthorID.Equals(User.Identity.GetUserId()))
+            {
+                return View("~/Views/Shared/NotOwner.cshtml");
+            }
+
             return View(market);
         }
 
-        // POST: Market/Delete/5
-        /*[HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Market market = db.Markets.Find(id);
-            db.Markets.Remove(market);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }*/
-
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [AdminAuthorize(Roles = "Admin")]
+        [Authorize(Roles = "Author")]
         public ActionResult Delete(int id)
         {
             try
             {
                 Market market = db.Markets.Find(id);
+                if (!market.AuthorID.Equals(User.Identity.GetUserId()))
+                {
+                    return View("~/Views/Shared/NotOwner.cshtml");
+                }
                 db.Markets.Remove(market);
                 db.SaveChanges();
             }

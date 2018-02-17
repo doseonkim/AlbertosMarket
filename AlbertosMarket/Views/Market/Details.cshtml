@@ -73,6 +73,8 @@
             <th>Author </th>
             <th>Comment </th>
             <th>Date </th>
+            <th></th>
+            <th></th>
         </tr>
 
         @foreach (var item in Model.Comments)
@@ -91,6 +93,14 @@
                 </td>
                 <td>
                     @item.CommentDate
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit",
+                             "Comment", new { id = item.CommentID }, null)
+                </td>
+                <td>
+                    @Html.ActionLink("Remove", "Delete",
+                             "Comment", new { id = item.CommentID }, null)
                 </td>
             </tr>
         }

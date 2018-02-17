@@ -154,12 +154,13 @@ namespace AlbertosMarket.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, UserRole = model.UserRole };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, UserRole = "Author" };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-
+                    model.UserRole = "Author";
                     //await SignInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: true, shouldLockout: false);
+                    await this.UserManager.AddToRoleAsync(user.Id, model.UserRole);
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
 
@@ -168,8 +169,6 @@ namespace AlbertosMarket.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                    model.UserRole = "Author";
-                    await this.UserManager.AddToRoleAsync(user.Id, model.UserRole);
                     Author author = new Author();
                     author.ID = user.Id;
                     author.Name = user.Email;

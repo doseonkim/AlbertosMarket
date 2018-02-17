@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using AlbertosMarket.DAL;
 using AlbertosMarket.Models;
 using AlbertosMarket.ViewModels;
+using Microsoft.AspNet.Identity;
 
 namespace AlbertosMarket.Controllers
 {
@@ -84,7 +85,7 @@ namespace AlbertosMarket.Controllers
         }
 
         // GET: Author/Edit/5
-        [AdminAuthorize(Roles = "Admin")]
+        [Authorize(Roles = "Author")]
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -96,6 +97,10 @@ namespace AlbertosMarket.Controllers
             {
                 return HttpNotFound();
             }
+            if (!id.Equals(User.Identity.GetUserId()))
+            {
+                return View("~/Views/Shared/NotOwner.cshtml");
+            }
             return View(author);
         }
 
@@ -104,9 +109,13 @@ namespace AlbertosMarket.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [AdminAuthorize(Roles = "Admin")]
+        [Authorize(Roles = "Author")]
         public ActionResult Edit([Bind(Include = "AuthorID,Name,JoinDate,location")] Author author)
         {
+            if (!author.ID.Equals(User.Identity.GetUserId()))
+            {
+                return View("~/Views/Shared/NotOwner.cshtml");
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(author).State = EntityState.Modified;

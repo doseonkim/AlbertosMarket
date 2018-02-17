@@ -34,7 +34,8 @@
 }
 
 <div>
-    @Html.ActionLink("Back to Post", null, null, null, new { href = Request.UrlReferrer })
+        @Html.ActionLink("Back to Post", "Details",
+                             "Market", new { id = (int)ViewBag.MarketID }, null)
 </div>
 
 @section Scripts {

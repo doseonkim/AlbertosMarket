@@ -20,14 +20,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Market.AuthorID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Market.AuthorID)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Content)
         </dt>
 
@@ -50,7 +42,8 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Back to Post", "Details",
+                             "Market", new { id = Model.MarketID }, null)
         </div>
     }
 </div>

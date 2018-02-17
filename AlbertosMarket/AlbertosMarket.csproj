@@ -205,7 +205,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MarketController.cs" />
-    <Compile Include="DAL\AdminAuthorize.cs" />
+    <Compile Include="Authorization\AdminAuthorize.cs" />
     <Compile Include="DAL\MarketConfiguration.cs" />
     <Compile Include="DAL\MarketContext.cs" />
     <Compile Include="DAL\MarketInitializer.cs" />
@@ -309,6 +309,7 @@
     <Content Include="Views\Comment\Edit.cshtml" />
     <Content Include="Views\Comment\Index.cshtml" />
     <Content Include="Views\Shared\Unauthorized.cshtml" />
+    <Content Include="Views\Shared\NotOwner.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
