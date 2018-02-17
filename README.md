@@ -24,3 +24,11 @@ Created the basic seed method to allow testing upon "update-database" is ran wit
 
 The database transaction is clear when adding/creating/editing Market posts and save within the MarketDB2 databse.
 We got through the 5 tutorials using our own model ideas that reflect our future project. We use migrations within this project as of the latest update and have made a change to one of the models since we are not using the Contoso University example. The project runs from the seed method upon "update-database".
+
+
+
+-WebApp3-
+
+Alberto: Created the Author model and added them into the DB Context. Generated the Authorize methods for general methods that should only be available for Authors and higher.
+
+Doseon: Connected AccountUsers to Author model using UserId as the AuthorID. Modified to create an author into the database when successfully registering an account. Update views and used viewbags to add more fluidity when creating/removing/editing comments. Added extra conditions for authorization on authors only allowing editing/deleting their own posts, comments and profiles.
