@@ -158,6 +158,8 @@ namespace AlbertosMarket.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+
+                    //await SignInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: true, shouldLockout: false);
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
 

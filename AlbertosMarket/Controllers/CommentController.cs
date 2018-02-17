@@ -40,7 +40,7 @@ namespace AlbertosMarket.Controllers
         }
 
 
-        [Authorize(Roles = "Author")]
+        [Authorize(Roles = "Author, Admin")]
         // GET: Comment/Create
         public ActionResult Create(int id)
         {
@@ -53,7 +53,7 @@ namespace AlbertosMarket.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Author")]
+        [Authorize(Roles = "Author, Admin")]
         public ActionResult Create([Bind(Include = "CommentID,MarketID,Content")] Comment comment)
         {
             if (ModelState.IsValid)

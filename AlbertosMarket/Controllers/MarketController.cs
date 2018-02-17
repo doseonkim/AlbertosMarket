@@ -109,7 +109,7 @@ namespace AlbertosMarket.Controllers
         }
 
         // GET: Market/Create
-        [Authorize(Roles = "Author")]
+        [Authorize(Roles = "Author, Admin")]
         public ActionResult Create()
         {
             ViewBag.AuthorID = new SelectList(db.Authors, "ID", "Name");
@@ -121,7 +121,7 @@ namespace AlbertosMarket.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Author")]
+        [Authorize(Roles = "Author, Admin")]
         public ActionResult Create([Bind(Include = "Option,Price,Title,Post")] Market market)
         {
             try
@@ -145,6 +145,8 @@ namespace AlbertosMarket.Controllers
         }
 
         // GET: Market/Edit/5
+
+        [Authorize(Roles = "Author, Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -177,6 +179,7 @@ namespace AlbertosMarket.Controllers
 
 
         [HttpPost, ActionName("Edit")]
+        [Authorize(Roles = "Author, Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult EditPost(int? id)
         {
