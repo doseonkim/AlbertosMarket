@@ -1,28 +1,23 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
-    var imagePath = "~/Content/images/the-market.png";
+    ViewBag.Title = "the Market";
+    //var imagePath = "~/Content/images/the-market.png";
 }
 
-<div class="jumbotron">
-    <img src="@Url.Content(imagePath)" alt="home image" />
-</div>
 <div class="row">
-    <div class="col-md-4">
-        <h2>Welcome to Alberto's Marketplace</h2>
+    <div class="col-10">
+        <h2>Welcome to <i>the Market</i></h2>
         <p>
-            Alberto's Marketplace is an application that
+            <i>the Market</i> is an application that
             allows users to communicate amongst one another 
             and create transactions amongst each other locally. 
         </p>
+        <p>
+            Click in the link below to start chatting with locals and 
+            get yourself a good deal.
+        </p>
     </div>
-    <div class="col-md-4">
-        <h2>Build it from scratch</h2>
-        <p>You can build the application by following the steps in the tutorial series on the ASP.NET site.</p>
-        <p><a class="btn btn-default" href="http://www.asp.net/mvc/tutorials/getting-started-with-ef-using-mvc/">See the tutorial &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Download it</h2>
-        <p>You can download the completed project from the Microsoft Code Gallery.</p>
-        <p><a class="btn btn-default" href="http://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8">Download &raquo;</a></p>
+
+    <div class="jumbotron">
+        @Html.ActionLink("Open Chat", "Chat")
     </div>
 </div>

@@ -4,6 +4,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Owin;
 
+
+//[assembly: OwinStartup(typeof(SignalRChat.Startup))]
+//namespace SignalRChat
 [assembly: OwinStartupAttribute(typeof(AlbertosMarket.Startup))]
 namespace AlbertosMarket
 {
@@ -14,6 +17,9 @@ namespace AlbertosMarket
             ConfigureAuth(app);
             ApplicationDbContext context = new ApplicationDbContext();
             createRoles();
+
+            // Any connection or hub wire up and configuration should go here
+            app.MapSignalR();
         }
     
         private void createRoles()
