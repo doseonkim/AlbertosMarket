@@ -72,7 +72,7 @@ namespace AlbertosMarket.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AdminAuthorize(Roles = "Admin")]
-        public ActionResult Create([Bind(Include = "AuthorID,Name,JoinDate,location")] Author author)
+        public ActionResult Create([Bind(Include = "ID,Name,JoinDate,location")] Author author)
         {
             if (ModelState.IsValid)
             {
@@ -110,7 +110,7 @@ namespace AlbertosMarket.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Author")]
-        public ActionResult Edit([Bind(Include = "AuthorID,Name,JoinDate,location")] Author author)
+        public ActionResult Edit([Bind(Include = "ID,Name,JoinDate,location")] Author author)
         {
             if (!author.ID.Equals(User.Identity.GetUserId()))
             {

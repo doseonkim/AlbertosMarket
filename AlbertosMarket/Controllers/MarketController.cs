@@ -19,6 +19,21 @@ namespace AlbertosMarket.Controllers
     {
         private MarketContext db = new MarketContext();
 
+        private IMarketRepository market_repo;
+        private IAuthorRepository author_repo;
+
+        public MarketController()
+        {
+            this.market_repo = new MarketRepository(new MarketContext());
+            this.author_repo = new AuthorRepository(new MarketContext());
+        }
+
+        public MarketController(IMarketRepository market_repo, IAuthorRepository author_repo)
+        {
+            this.market_repo = market_repo;
+            this.author_repo = author_repo;
+        }
+
         // GET: Market
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {

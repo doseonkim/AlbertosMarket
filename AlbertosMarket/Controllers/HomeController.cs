@@ -33,6 +33,8 @@ namespace AlbertosMarket.Controllers
                                                        Option = dateGroup.Key,
                                                        TradeCount = dateGroup.Count()
                                                    };
+            ViewBag.Message = "Trade Statistics";
+
             return View(data.ToList());
         }
 

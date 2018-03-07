@@ -214,11 +214,13 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MarketController.cs" />
     <Compile Include="Authorization\AdminAuthorize.cs" />
+    <Compile Include="DAL\GenericRepoistory.cs" />
     <Compile Include="DAL\MarketConfiguration.cs" />
     <Compile Include="DAL\MarketContext.cs" />
     <Compile Include="DAL\MarketInitializer.cs" />
     <Compile Include="DAL\MarketInterceptorLogging.cs" />
     <Compile Include="DAL\MarketInterceptorTransientErrors.cs" />
+    <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -233,9 +235,13 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\IAuthorRepository.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\IMarketRepository.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Market.cs" />
+    <Compile Include="Models\AuthorRepository.cs" />
+    <Compile Include="Models\MarketRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\AuthorIndexData.cs" />
